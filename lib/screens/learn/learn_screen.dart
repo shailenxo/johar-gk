@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:johar_gk/screens/learn/introduction_screen.dart';
 
 class LearnScreen extends StatelessWidget {
   const LearnScreen({super.key});
@@ -25,9 +26,7 @@ class LearnScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Learn Jharkhand GK'),
-      ),
+      appBar: AppBar(title: const Text('Learn Jharkhand GK')),
       body: ListView.builder(
         itemCount: chapters.length,
         itemBuilder: (context, index) {
@@ -36,11 +35,18 @@ class LearnScreen extends StatelessWidget {
             title: Text(chapters[index]),
             trailing: const Icon(Icons.arrow_forward_ios, size: 16),
             onTap: () {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text('${chapters[index]} - Coming Soon'),
-                ),
-              );
+              if (index == 0) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const IntroductionScreen(),
+                  ),
+                );
+              } else {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('${chapters[index]} - Coming Soon')),
+                );
+              }
             },
           );
         },

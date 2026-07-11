@@ -1,17 +1,34 @@
-# johar_gk
+# 🌿 Johar GK
 
-A new Flutter project.
+A modern Flutter application for Jharkhand Competitive Exam Preparation.
 
-## Getting Started
+## 📚 Features
 
-This project is a starting point for a Flutter application.
+- 📘 Learn Jharkhand GK
+- 📝 Practice MCQs
+- 🎯 Mock Tests
+- 🔖 Bookmarks
+- 📊 Progress Tracking
+- 📰 Current Affairs
 
-A few resources to get you started if this is your first Flutter project:
+## 🚀 Built With
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+- Flutter
+- Dart
+- Material Design 3
+- Git & GitHub
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## 🎯 Roadmap
+
+- [x] Home Screen
+- [x] Learn Screen
+- [ ] History Chapter
+- [ ] MCQ Engine
+- [ ] Search
+- [ ] Bookmark System
+- [ ] Progress Dashboard
+- [ ] Play Store Release
+
+## 👨‍💻 Developer
+
+Shailendra Kumar
