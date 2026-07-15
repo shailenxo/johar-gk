@@ -18,10 +18,8 @@ class FeatureCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 5,
-      shadowColor: color.withOpacity(0.25),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(18),
-      ),
+      shadowColor: color.withValues(alpha: 0.25),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
       child: InkWell(
         borderRadius: BorderRadius.circular(18),
         onTap: onTap,
@@ -32,12 +30,8 @@ class FeatureCard extends StatelessWidget {
             children: [
               CircleAvatar(
                 radius: 28,
-                backgroundColor: color.withOpacity(.15),
-                child: Icon(
-                  icon,
-                  color: color,
-                  size: 30,
-                ),
+                backgroundColor: color.withValues(alpha: .15),
+                child: Icon(icon, color: color, size: 30),
               ),
 
               const SizedBox(height: 16),

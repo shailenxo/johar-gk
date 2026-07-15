@@ -1,3 +1,4 @@
+import 'package:johar_gk/screens/tests/chapter_screen.dart';
 import '../learn/learn_screen.dart';
 import '../../widgets/feature_card.dart';
 import '../../core/theme/app_colors.dart';
@@ -22,20 +23,14 @@ class HomeScreen extends StatelessWidget {
           children: [
             const Text(
               'Johar! 👋',
-              style: TextStyle(
-                fontSize: 30,
-                fontWeight: FontWeight.bold,
-              ),
+              style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
             ),
 
             const SizedBox(height: 8),
 
             Text(
               'Johar to Success!',
-              style: TextStyle(
-                fontSize: 18,
-                color: Colors.grey.shade700,
-              ),
+              style: TextStyle(fontSize: 18, color: Colors.grey.shade700),
             ),
 
             const SizedBox(height: 30),
@@ -46,36 +41,37 @@ class HomeScreen extends StatelessWidget {
                 crossAxisSpacing: 16,
                 mainAxisSpacing: 16,
                 children: [
-                  FeatureCard(icon: Icons.menu_book,
-  title: 'Learn',
-  color: AppColors.learn,
-  onTap: () {
-
-  Navigator.push(
-    context,
-    MaterialPageRoute(
-      builder: (context) => const LearnScreen(),
-    ),
-  );
-  },
-  ),
                   FeatureCard(
-  icon: Icons.edit_note,
-  title: 'Practice',
-  color: AppColors.practice,
-  onTap: () {},
-  ),
-                  FeatureCard(icon: Icons.quiz,
-  title: 'Mock Test',
-  color: AppColors.quiz,
-  onTap: () {},
-  ),
+                    icon: Icons.menu_book,
+                    title: 'Learn',
+                    color: AppColors.learn,
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const ChapterScreen(),
+                        ),
+                      );
+                    },
+                  ),
                   FeatureCard(
-  icon: Icons.bookmark,
-  title: 'Bookmarks',
-  color: AppColors.bookmark,
-  onTap: () {},
-  ),
+                    icon: Icons.edit_note,
+                    title: 'Practice',
+                    color: AppColors.practice,
+                    onTap: () {},
+                  ),
+                  FeatureCard(
+                    icon: Icons.quiz,
+                    title: 'Mock Test',
+                    color: AppColors.quiz,
+                    onTap: () {},
+                  ),
+                  FeatureCard(
+                    icon: Icons.bookmark,
+                    title: 'Bookmarks',
+                    color: AppColors.bookmark,
+                    onTap: () {},
+                  ),
                 ],
               ),
             ),
@@ -85,21 +81,11 @@ class HomeScreen extends StatelessWidget {
 
       bottomNavigationBar: NavigationBar(
         destinations: const [
-          NavigationDestination(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.school),
-            label: 'Learn',
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.person),
-            label: 'Profile',
-          ),
+          NavigationDestination(icon: Icon(Icons.home), label: 'Home'),
+          NavigationDestination(icon: Icon(Icons.school), label: 'Learn'),
+          NavigationDestination(icon: Icon(Icons.person), label: 'Profile'),
         ],
       ),
     );
   }
 }
-
