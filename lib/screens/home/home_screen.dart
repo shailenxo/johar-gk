@@ -28,7 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   @override
-  Widget build(BuildContext voidContext) {
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -58,7 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   // =========================================================================
-  // TAB 1: TESTS DASHBOARD (Your Original Grid UI adapted for the tab)
+  // TAB 1: TESTS DASHBOARD (Your Original Grid UI)
   // =========================================================================
   Widget _buildHomeTestDashboard() {
     return Padding(
@@ -105,7 +105,14 @@ class _HomeScreenState extends State<HomeScreen> {
                   icon: Icons.quiz,
                   title: 'Mock Test',
                   color: AppColors.quiz,
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const ChapterScreen(),
+                      ),
+                    );
+                  },
                 ),
                 FeatureCard(
                   icon: Icons.bookmark,
@@ -140,8 +147,6 @@ class _HomeScreenState extends State<HomeScreen> {
             style: TextStyle(color: Colors.grey.shade700),
           ),
           const SizedBox(height: 30),
-
-          // Action Card 1: Friends Invite Duel
           _buildActionCard(
             title: 'Challenge a Friend',
             description: 'Generate a room code and play dynamic sets together.',
@@ -150,8 +155,6 @@ class _HomeScreenState extends State<HomeScreen> {
             actionLabel: 'Create Room',
           ),
           const SizedBox(height: 20),
-
-          // Action Card 2: Matchmaking
           _buildActionCard(
             title: 'Random Matchmaking',
             description:
@@ -165,7 +168,6 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  // Helper Widget for Clean Battle Cards
   Widget _buildActionCard({
     required String title,
     required String description,
@@ -185,7 +187,7 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             CircleAvatar(
               radius: 24,
-              backgroundColor: color.withOpacity(0.1),
+              backgroundColor: color.withValues(alpha: 0.1),
               child: Icon(icon, color: color),
             ),
             const SizedBox(width: 16),
@@ -272,8 +274,6 @@ class _HomeScreenState extends State<HomeScreen> {
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
           ),
           const SizedBox(height: 24),
-
-          // Premium validity status widget box
           Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
