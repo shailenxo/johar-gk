@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'question_bank.dart'; // Handles the 4x question repetition engine
 
 class QuizScreen extends StatefulWidget {
   final String chapterTitle;
@@ -19,20 +20,21 @@ class _QuizScreenState extends State<QuizScreen> {
   // Track user selections (-1 means unattempted)
   final List<int> _selectedAnswers = List.generate(20, (index) => -1);
 
-  // Mock Question Database Structure (20 questions)
-  final List<Map<String, dynamic>> _questions = List.generate(
-    20,
-    (index) => {
-      'question':
-          'Sample Question ${index + 1}: What is the capital/major center of Jharkhand related to this GK topic?',
-      'options': ['Ranchi', 'Jamshedpur', 'Dhanbad', 'Dumka'],
-      'correctIndex': 0,
-    },
-  );
+  // Dynamic question list filled by the repetition engine
+  late final List<Map<String, dynamic>> _questions;
 
   @override
   void initState() {
     super.initState();
+
+    // Extract Chapter name and Test number safely from the title string
+    List<String> parts = widget.chapterTitle.split(" - Test ");
+    String chName = parts[0];
+    int testNum = parts.length > 1 ? int.parse(parts[1]) : 1;
+
+    // Fetch the smart-repeated question set for this specific test
+    _questions = QuestionBank.getQuestionsForTest(chName, testNum);
+
     _startTimer();
   }
 
@@ -58,7 +60,7 @@ class _QuizScreenState extends State<QuizScreen> {
   void _submitQuiz({bool autoSubmit = false}) {
     _timer?.cancel();
 
-    // Calculate final metrics
+    // Calculate performance metrics
     int attempted = _selectedAnswers.where((index) => index != -1).length;
     int score = 0;
     for (int i = 0; i < _questions.length; i++) {
@@ -95,7 +97,7 @@ class _QuizScreenState extends State<QuizScreen> {
   }
 
   @override
-  Widget build(BuildContext voidContext) {
+  Widget build(BuildContext context) {
     int attemptedCount = _selectedAnswers.where((ans) => ans != -1).length;
     int leftCount = _questions.length - attemptedCount;
     var currentQuestion = _questions[_currentQuestionIndex];

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'test_list_screen.dart'; // Import our new 20 tests screen!
 
 class ChapterScreen extends StatelessWidget {
   const ChapterScreen({super.key});
@@ -36,8 +37,13 @@ class ChapterScreen extends StatelessWidget {
               title: Text(chapters[index]),
               trailing: const Icon(Icons.arrow_forward_ios),
               onTap: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text("${chapters[index]} selected")),
+                // 🌟 Navigate to the 20 tests grid for the selected chapter
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        TestListScreen(chapterName: chapters[index]),
+                  ),
                 );
               },
             ),
