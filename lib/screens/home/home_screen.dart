@@ -403,7 +403,7 @@ class _HomeScreenState extends State<HomeScreen> {
             const Icon(Icons.chevron_right, color: Colors.grey, size: 20),
           ],
         ),
-        onPressed: () {},
+        onTap: () {},
       ),
     );
   }
