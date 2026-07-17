@@ -14,7 +14,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF0D0E15), // Deep Cyber Dark Space
+      backgroundColor: const Color(0xFF0D0E15),
       appBar: AppBar(
         backgroundColor: const Color(0xFF0D0E15),
         elevation: 0,
@@ -46,18 +46,18 @@ class _HomeScreenState extends State<HomeScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
+                // FIXED: Updated top right header tracking texts
                 Text(
-                  'QUANTUM',
+                  'JOHAR',
                   style: TextStyle(
                     color: Color(0xFFFF2A6D),
-                    fontWeight:
-                        FontWeight.w900, //  Changed from .black to .w900
+                    fontWeight: FontWeight.w900,
                     fontSize: 14,
                     letterSpacing: 1,
                   ),
                 ),
                 Text(
-                  'EXAM',
+                  'GK',
                   style: TextStyle(
                     color: Color(0xFF05D9E8),
                     fontWeight: FontWeight.bold,
@@ -111,7 +111,6 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  // 🎛️ THE GLOWING CYBER-NEON GRID
   Widget _buildNeonGridDashboard() {
     return Padding(
       padding: const EdgeInsets.all(20.0),
@@ -119,13 +118,13 @@ class _HomeScreenState extends State<HomeScreen> {
         crossAxisCount: 2,
         crossAxisSpacing: 16,
         mainAxisSpacing: 16,
-        childAspectRatio: 0.85, // Matches the screenshot aspect ratio
+        childAspectRatio: 0.85,
         children: [
           _buildQuantumCard(
             title: 'START TEST',
             subtitle: 'Current:\nMock Exam 4.1',
             icon: Icons.timer_outlined,
-            glowColor: const Color(0xFF05D9E8), // Cyan Blue Glow
+            glowColor: const Color(0xFF05D9E8),
             onTap: () {
               Navigator.push(
                 context,
@@ -136,22 +135,22 @@ class _HomeScreenState extends State<HomeScreen> {
           _buildQuantumCard(
             title: 'BATTLE ROYALE',
             subtitle: 'Live: Challenge Friends!\nNext Match in 2m 15s',
-            icon: Icons.local_fire_department_outlined, // Neon Red Swords proxy
-            glowColor: const Color(0xFFFF2A6D), // Cyber Red Glow
+            icon: Icons.local_fire_department_outlined,
+            glowColor: const Color(0xFFFF2A6D),
             onTap: () {},
           ),
           _buildQuantumCard(
             title: 'VIEW RESULTS',
             subtitle: 'Latest Score: 85%\nRank: Top 5%',
             icon: Icons.emoji_events_outlined,
-            glowColor: const Color(0xFFB10DC9), // High-volt Magenta
+            glowColor: const Color(0xFFB10DC9),
             onTap: () {},
           ),
           _buildQuantumCard(
             title: 'MY PROFILE',
             subtitle: 'Level 18 | 4500 XP',
             icon: Icons.account_circle_outlined,
-            glowColor: const Color(0xFF01FF70), // Toxic Green Glow
+            glowColor: const Color(0xFF01FF70),
             onTap: () {},
           ),
         ],
@@ -159,7 +158,6 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  // Helper widget builder for generating glowing tiles without const conflicts
   Widget _buildQuantumCard({
     required String title,
     required String subtitle,
@@ -175,7 +173,6 @@ class _HomeScreenState extends State<HomeScreen> {
         decoration: BoxDecoration(
           color: const Color(0xFF161925),
           borderRadius: BorderRadius.circular(16),
-          // FIXED: Used modern withValues instead of deprecated withOpacity
           border: Border.all(
             color: glowColor.withValues(alpha: 0.8),
             width: 1.5,

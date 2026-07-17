@@ -47,7 +47,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     boxShadow: [
                       BoxShadow(
-                        // FIXED: Used withValues instead of deprecated withOpacity
                         color: const Color(0xFF00E5FF).withValues(alpha: 0.3),
                         blurRadius: 15,
                         spreadRadius: 2,
@@ -62,8 +61,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const SizedBox(height: 16),
 
+                // FIXED: Changed to JOHAR GK branding
                 const Text(
-                  'QUANTUM',
+                  'JOHAR',
                   style: TextStyle(
                     color: Color(0xFFFF2A6D),
                     fontSize: 28,
@@ -72,7 +72,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 const Text(
-                  'EXAM',
+                  'GK',
                   style: TextStyle(
                     color: Color(0xFF05D9E8),
                     fontSize: 20,
@@ -171,7 +171,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     borderRadius: BorderRadius.circular(27),
                     boxShadow: [
                       BoxShadow(
-                        // FIXED: Used withValues instead of deprecated withOpacity
                         color: const Color(0xFFFF2A6D).withValues(alpha: 0.4),
                         blurRadius: 12,
                         offset: const Offset(0, 4),
