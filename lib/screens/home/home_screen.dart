@@ -10,400 +10,212 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0;
-  late final List<Widget> _tabs;
-
-  @override
-  void initState() {
-    super.initState();
-    _tabs = [
-      const ChapterScreen(),
-      _buildBattleHub(),
-      _buildResultsHub(),
-      _buildProfileHub(),
-    ];
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFF0D0E15), // Deep Cyber Dark Space
       appBar: AppBar(
-        title: const Text(
-          'Johar GK',
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
-      ),
-      body: SafeArea(child: _tabs[_currentIndex]),
-      bottomNavigationBar: NavigationBar(
-        selectedIndex: _currentIndex,
-        onDestinationSelected: (int index) {
-          setState(() {
-            _currentIndex = index;
-          });
-        },
-        destinations: const [
-          NavigationDestination(icon: Icon(Icons.assignment), label: 'Test'),
-          NavigationDestination(icon: Icon(Icons.bolt), label: 'Battle Royale'),
-          NavigationDestination(
-            icon: Icon(Icons.emoji_events),
-            label: 'Results',
-          ),
-          NavigationDestination(icon: Icon(Icons.person), label: 'Profile'),
-        ],
-      ),
-    );
-  }
-
-  // =========================================================================
-  // TAB 2: BATTLE ROYALE SCREEN
-  // =========================================================================
-  Widget _buildBattleHub() {
-    return Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text(
-            'Battle Royale Room',
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 6),
-          const Text(
-            'Challenge other aspirants live on identical test sheets.',
-            style: TextStyle(color: Colors.grey),
-          ),
-          const SizedBox(height: 30),
-          _buildActionCard(
-            title: 'Challenge a Friend',
-            description: 'Generate a room code and play dynamic sets together.',
-            icon: Icons.groups,
-            color: Colors.deepPurple,
-            actionLabel: 'Create Room',
-          ),
-          const SizedBox(height: 20),
-          _buildActionCard(
-            title: 'Random Matchmaking',
-            description:
-                'Instantly match with any active student online right now.',
-            icon: Icons.flash_on,
-            color: Colors.amber.shade800,
-            actionLabel: 'Find Match',
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildActionCard({
-    required String title,
-    required String description,
-    required IconData icon,
-    required Color color,
-    required String actionLabel,
-  }) {
-    return Card(
-      elevation: 0,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
-        side: BorderSide(color: Colors.grey.shade200),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Row(
-          children: [
-            CircleAvatar(
-              radius: 24,
-              backgroundColor: color.withOpacity(0.1),
-              child: Icon(icon, color: color),
+        backgroundColor: const Color(0xFF0D0E15),
+        elevation: 0,
+        leading: const Padding(
+          padding: EdgeInsets.only(left: 16.0),
+          child: CircleAvatar(
+            backgroundImage: NetworkImage(
+              'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=100&q=80',
             ),
-            const SizedBox(width: 16),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    title,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                    ),
-                  ),
-                  Text(
-                    description,
-                    style: TextStyle(color: Colors.grey.shade600, fontSize: 12),
-                  ),
-                  const SizedBox(height: 10),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: color,
-                      foregroundColor: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    ),
-                    onPressed: () {},
-                    child: Text(actionLabel),
-                  ),
-                ],
+          ),
+        ),
+        title: const Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Alex J.',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
               ),
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  // =========================================================================
-  // TAB 3: DYNAMIC RESULTS HISTORY LOG
-  // =========================================================================
-  Widget _buildResultsHub() {
-    final List<Map<String, dynamic>> pastScores = [
-      {
-        'title': 'Introduction - Test 1',
-        'score': '18/20',
-        'date': 'Today',
-        'passed': true,
-      },
-      {
-        'title': 'History - Test 3',
-        'score': '15/20',
-        'date': 'Yesterday',
-        'passed': true,
-      },
-      {
-        'title': 'Geography - Test 1',
-        'score': '08/20',
-        'date': '2 days ago',
-        'passed': false,
-      },
-    ];
-
-    return Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text(
-            'Performance History',
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 6),
-          const Text(
-            'Review your answers and historical test report cards.',
-            style: TextStyle(color: Colors.grey),
-          ),
-          const SizedBox(height: 20),
-          Expanded(
-            child: ListView.builder(
-              itemCount: pastScores.length,
-              itemBuilder: (context, index) {
-                final run = pastScores[index];
-                return Card(
-                  margin: const EdgeInsets.only(bottom: 12),
-                  elevation: 0,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    side: BorderSide(color: Colors.grey.shade200),
-                  ),
-                  child: ListTile(
-                    leading: CircleAvatar(
-                      backgroundColor: run['passed']
-                          ? Colors.green.shade50
-                          : Colors.red.shade50,
-                      child: Icon(
-                        run['passed']
-                            ? Icons.check_circle_outline
-                            : Icons.highlight_off,
-                        color: run['passed'] ? Colors.green : Colors.red,
-                      ),
-                    ),
-                    title: Text(
-                      run['title'],
-                      style: const TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    subtitle: Text(
-                      run['date'],
-                      style: TextStyle(
-                        color: Colors.grey.shade500,
-                        fontSize: 12,
-                      ),
-                    ),
-                    trailing: Text(
-                      run['score'],
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: run['passed']
-                            ? Colors.green.shade700
-                            : Colors.red.shade700,
-                      ),
-                    ),
-                  ),
-                );
-              },
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  // =========================================================================
-  // TAB 4: UPGRADED ACCOUNT PROFILE VIEW
-  // =========================================================================
-  Widget _buildProfileHub() {
-    return SingleChildScrollView(
-      padding: const EdgeInsets.all(20.0),
-      child: Column(
-        children: [
-          const SizedBox(height: 10),
-          // User Avatar and Metadata Header
-          const CircleAvatar(
-            radius: 40,
-            backgroundColor: Colors.teal,
-            child: Icon(Icons.person, size: 45, color: Colors.white),
-          ),
-          const SizedBox(height: 14),
-          const Text(
-            'Aspirant Account',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
-          ),
-          const Text(
-            'student.johar@gmail.com',
-            style: TextStyle(color: Colors.grey, fontSize: 14),
-          ),
-          const SizedBox(height: 26),
-
-          // Premium validity status badge box
-          Container(
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [Colors.teal.shade600, Colors.teal.shade800],
-              ),
-              borderRadius: BorderRadius.circular(14),
-            ),
-            child: Row(
+        actions: const [
+          Padding(
+            padding: EdgeInsets.only(right: 16.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                const Icon(
-                  Icons.workspace_premium,
-                  color: Colors.amber,
-                  size: 32,
-                ),
-                const SizedBox(width: 14),
-                const Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'PREMIUM PASS ACTIVE',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 15,
-                        ),
-                      ),
-                      Text(
-                        'Validity Remaining: 365 Days',
-                        style: TextStyle(color: Colors.white70, fontSize: 12),
-                      ),
-                    ],
+                Text(
+                  'QUANTUM',
+                  style: TextStyle(
+                    color: Color(0xFFFF2A6D),
+                    fontWeight:
+                        FontWeight.w900, //  Changed from .black to .w900
+                    fontSize: 14,
+                    letterSpacing: 1,
                   ),
                 ),
-                TextButton(
-                  style: TextButton.styleFrom(
-                    backgroundColor: Colors.white,
-                    foregroundColor: Colors.teal.shade900,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
-                  onPressed: () {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Payment gateway opening simulation...'),
-                      ),
-                    );
-                  },
-                  child: const Text(
-                    'Renew Plan',
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                Text(
+                  'EXAM',
+                  style: TextStyle(
+                    color: Color(0xFF05D9E8),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 11,
                   ),
                 ),
               ],
             ),
           ),
-          const SizedBox(height: 24),
-
-          // Account Management List Settings Panels
-          _buildProfileRowSetting(
-            icon: Icons.settings,
-            title: 'App Settings',
-            trailingText: '',
-          ),
-          _buildProfileRowSetting(
-            icon: Icons.language,
-            title: 'Exam Language Preference',
-            trailingText: 'English / Hindi',
-          ),
-          _buildProfileRowSetting(
-            icon: Icons.help_outline,
-            title: 'Help & Support Center',
-            trailingText: '',
-          ),
-          _buildProfileRowSetting(
-            icon: Icons.info_outline,
-            title: 'About Johar GK v1.0',
-            trailingText: '',
-          ),
-
-          const SizedBox(height: 15),
-          // Logout Action Mock Row Button
-          TextButton.icon(
-            style: TextButton.styleFrom(foregroundColor: Colors.red[700]),
-            onPressed: () {},
-            icon: const Icon(Icons.logout),
-            label: const Text(
-              'Logout Account',
-              style: TextStyle(fontWeight: FontWeight.bold),
+        ],
+      ),
+      body: SafeArea(
+        child: _currentIndex == 0
+            ? _buildNeonGridDashboard()
+            : const Center(
+                child: Text(
+                  'Sub Tab View Active',
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+      ),
+      bottomNavigationBar: Theme(
+        data: Theme.of(context).copyWith(canvasColor: const Color(0xFF0D0E15)),
+        child: BottomNavigationBar(
+          currentIndex: _currentIndex,
+          backgroundColor: const Color(0xFF0D0E15),
+          selectedItemColor: const Color(0xFFFF2A6D),
+          unselectedItemColor: Colors.grey[600],
+          type: BottomNavigationBarType.fixed,
+          onTap: (index) => setState(() => _currentIndex = index),
+          items: const [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home_outlined),
+              label: 'Home',
             ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.edit_note),
+              label: 'Practice',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.emoji_events_outlined),
+              label: 'Leaderboard',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.settings_outlined),
+              label: 'Settings',
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  // 🎛️ THE GLOWING CYBER-NEON GRID
+  Widget _buildNeonGridDashboard() {
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: GridView.count(
+        crossAxisCount: 2,
+        crossAxisSpacing: 16,
+        mainAxisSpacing: 16,
+        childAspectRatio: 0.85, // Matches the screenshot aspect ratio
+        children: [
+          _buildQuantumCard(
+            title: 'START TEST',
+            subtitle: 'Current:\nMock Exam 4.1',
+            icon: Icons.timer_outlined,
+            glowColor: const Color(0xFF05D9E8), // Cyan Blue Glow
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const ChapterScreen()),
+              );
+            },
+          ),
+          _buildQuantumCard(
+            title: 'BATTLE ROYALE',
+            subtitle: 'Live: Challenge Friends!\nNext Match in 2m 15s',
+            icon: Icons.local_fire_department_outlined, // Neon Red Swords proxy
+            glowColor: const Color(0xFFFF2A6D), // Cyber Red Glow
+            onTap: () {},
+          ),
+          _buildQuantumCard(
+            title: 'VIEW RESULTS',
+            subtitle: 'Latest Score: 85%\nRank: Top 5%',
+            icon: Icons.emoji_events_outlined,
+            glowColor: const Color(0xFFB10DC9), // High-volt Magenta
+            onTap: () {},
+          ),
+          _buildQuantumCard(
+            title: 'MY PROFILE',
+            subtitle: 'Level 18 | 4500 XP',
+            icon: Icons.account_circle_outlined,
+            glowColor: const Color(0xFF01FF70), // Toxic Green Glow
+            onTap: () {},
           ),
         ],
       ),
     );
   }
 
-  // Helper template widget to quickly paint matching standard custom settings items
-  Widget _buildProfileRowSetting({
-    required IconData icon,
+  // Helper widget builder for generating glowing tiles without const conflicts
+  Widget _buildQuantumCard({
     required String title,
-    required String trailingText,
+    required String subtitle,
+    required IconData icon,
+    required Color glowColor,
+    required VoidCallback onTap,
   }) {
-    return Card(
-      elevation: 0,
-      margin: const EdgeInsets.only(bottom: 10),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-        side: BorderSide(color: Colors.grey.shade100),
-      ),
-      child: ListTile(
-        leading: Icon(icon, color: Colors.teal[800]),
-        title: Text(
-          title,
-          style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 15),
-        ),
-        trailing: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            if (trailingText.isNotEmpty)
-              Text(
-                trailingText,
-                style: const TextStyle(color: Colors.grey, fontSize: 13),
-              ),
-            const SizedBox(width: 4),
-            const Icon(Icons.chevron_right, color: Colors.grey, size: 20),
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(16),
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: const Color(0xFF161925),
+          borderRadius: BorderRadius.circular(16),
+          // FIXED: Used modern withValues instead of deprecated withOpacity
+          border: Border.all(
+            color: glowColor.withValues(alpha: 0.8),
+            width: 1.5,
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: glowColor.withValues(alpha: 0.2),
+              blurRadius: 10,
+              spreadRadius: 1,
+            ),
           ],
         ),
-        onTap: () {},
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Icon(icon, color: glowColor, size: 44),
+            const SizedBox(height: 16),
+            Text(
+              title,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 14,
+                letterSpacing: 0.5,
+              ),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              subtitle,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Colors.grey[400],
+                fontSize: 11,
+                height: 1.3,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

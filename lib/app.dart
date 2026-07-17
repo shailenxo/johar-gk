@@ -1,6 +1,6 @@
+import 'screens/home/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'core/theme/app_theme.dart';
-import 'screens/home/home_screen.dart';
 
 class JoharGKApp extends StatelessWidget {
   const JoharGKApp({super.key});
@@ -11,7 +11,7 @@ class JoharGKApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Johar GK',
       theme: AppTheme.lightTheme,
-      home: const HomeScreen(),
+      home: const LoginScreen(),
     );
   }
 }
