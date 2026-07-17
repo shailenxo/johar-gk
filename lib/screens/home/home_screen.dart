@@ -10,18 +10,16 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0;
-
-  // The 4 screens matching your tabs exactly
   late final List<Widget> _tabs;
 
   @override
   void initState() {
     super.initState();
     _tabs = [
-      const ChapterScreen(), // Tab 1 opens your core Chapter-wise Mock Tests directly!
-      _buildBattleHub(), // Tab 2: Battle Royale
-      _buildResultsHub(), // Tab 3: Results Repository
-      _buildProfileHub(), // Tab 4: Profile & Validity
+      const ChapterScreen(),
+      _buildBattleHub(),
+      _buildResultsHub(),
+      _buildProfileHub(),
     ];
   }
 
@@ -95,7 +93,6 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  // Helper widget to easily draw clean battle action cards
   Widget _buildActionCard({
     required String title,
     required String description,
@@ -156,26 +153,95 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   // =========================================================================
-  // TAB 3: RESULTS SCREEN
+  // TAB 3: DYNAMIC RESULTS HISTORY LOG
   // =========================================================================
   Widget _buildResultsHub() {
-    return Center(
+    // Simulated historical scores database rows
+    final List<Map<String, dynamic>> pastScores = [
+      {
+        'title': 'Introduction - Test 1',
+        'score': '18/20',
+        'date': 'Today',
+        'passed': true,
+      },
+      {
+        'title': 'History - Test 3',
+        'score': '15/20',
+        'date': 'Yesterday',
+        'passed': true,
+      },
+      {
+        'title': 'Geography - Test 1',
+        'score': '08/20',
+        'date': '2 days ago',
+        'passed': false,
+      },
+    ];
+
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(
-            Icons.emoji_events_outlined,
-            size: 64,
-            color: Colors.grey.shade400,
-          ),
-          const SizedBox(height: 12),
           const Text(
-            'Performance Repository',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+            'Performance History',
+            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),
-          Text(
-            'Live dynamic scores & ranks will sort here.',
-            style: TextStyle(color: Colors.grey.shade600),
+          const SizedBox(height: 6),
+          const Text(
+            'Review your answers and historical test report cards.',
+            style: TextStyle(color: Colors.grey),
+          ),
+          const SizedBox(height: 20),
+          Expanded(
+            child: ListView.builder(
+              itemCount: pastScores.length,
+              itemBuilder: (context, index) {
+                final run = pastScores[index];
+                return Card(
+                  margin: const EdgeInsets.only(bottom: 12),
+                  elevation: 0,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    side: BorderSide(color: Colors.grey.shade200),
+                  ),
+                  child: ListTile(
+                    leading: CircleAvatar(
+                      backgroundColor: run['passed']
+                          ? Colors.green.shade50
+                          : Colors.red.shade50,
+                      child: Icon(
+                        run['passed']
+                            ? Icons.check_circle_outline
+                            : Icons.highlight_off,
+                        color: run['passed'] ? Colors.green : Colors.red,
+                      ),
+                    ),
+                    title: Text(
+                      run['title'],
+                      style: const TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    subtitle: Text(
+                      run['date'],
+                      style: TextStyle(
+                        color: Colors.grey.shade500,
+                        fontSize: 12,
+                      ),
+                    ),
+                    trailing: Text(
+                      run['score'],
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: run['passed']
+                            ? Colors.green.shade700
+                            : Colors.red.shade700,
+                      ),
+                    ),
+                  ),
+                );
+              },
+            ),
           ),
         ],
       ),
