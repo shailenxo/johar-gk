@@ -156,7 +156,6 @@ class _HomeScreenState extends State<HomeScreen> {
   // TAB 3: DYNAMIC RESULTS HISTORY LOG
   // =========================================================================
   Widget _buildResultsHub() {
-    // Simulated historical scores database rows
     final List<Map<String, dynamic>> pastScores = [
       {
         'title': 'Introduction - Test 1',
@@ -249,57 +248,162 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   // =========================================================================
-  // TAB 4: PROFILE SCREEN WITH VALIDITY
+  // TAB 4: UPGRADED ACCOUNT PROFILE VIEW
   // =========================================================================
   Widget _buildProfileHub() {
-    return Padding(
+    return SingleChildScrollView(
       padding: const EdgeInsets.all(20.0),
       child: Column(
         children: [
-          const SizedBox(height: 20),
+          const SizedBox(height: 10),
+          // User Avatar and Metadata Header
           const CircleAvatar(
-            radius: 36,
-            backgroundColor: Colors.blueGrey,
-            child: Icon(Icons.person, size: 40, color: Colors.white),
+            radius: 40,
+            backgroundColor: Colors.teal,
+            child: Icon(Icons.person, size: 45, color: Colors.white),
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: 14),
           const Text(
             'Aspirant Account',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
           ),
-          const SizedBox(height: 24),
+          const Text(
+            'student.johar@gmail.com',
+            style: TextStyle(color: Colors.grey, fontSize: 14),
+          ),
+          const SizedBox(height: 26),
+
+          // Premium validity status badge box
           Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [Colors.teal.shade600, Colors.teal.shade800],
               ),
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(14),
             ),
-            child: const Row(
+            child: Row(
               children: [
-                Icon(Icons.workspace_premium, color: Colors.amber, size: 28),
-                SizedBox(width: 12),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'PREMIUM ACCESSIBILITY ACTIVE',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
+                const Icon(
+                  Icons.workspace_premium,
+                  color: Colors.amber,
+                  size: 32,
+                ),
+                const SizedBox(width: 14),
+                const Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'PREMIUM PASS ACTIVE',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 15,
+                        ),
                       ),
+                      Text(
+                        'Validity Remaining: 365 Days',
+                        style: TextStyle(color: Colors.white70, fontSize: 12),
+                      ),
+                    ],
+                  ),
+                ),
+                TextButton(
+                  style: TextButton.styleFrom(
+                    backgroundColor: Colors.white,
+                    foregroundColor: Colors.teal.shade900,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
                     ),
-                    Text(
-                      'Validity Left: 365 Days',
-                      style: TextStyle(color: Colors.white70, fontSize: 12),
-                    ),
-                  ],
+                  ),
+                  onPressed: () {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Payment gateway opening simulation...'),
+                      ),
+                    );
+                  },
+                  child: const Text(
+                    'Renew Plan',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
                 ),
               ],
             ),
           ),
+          const SizedBox(height: 24),
+
+          // Account Management List Settings Panels
+          _buildProfileRowSetting(
+            icon: Icons.settings,
+            title: 'App Settings',
+            trailingText: '',
+          ),
+          _buildProfileRowSetting(
+            icon: Icons.language,
+            title: 'Exam Language Preference',
+            trailingText: 'English / Hindi',
+          ),
+          _buildProfileRowSetting(
+            icon: Icons.help_outline,
+            title: 'Help & Support Center',
+            trailingText: '',
+          ),
+          _buildProfileRowSetting(
+            icon: Icons.info_outline,
+            title: 'About Johar GK v1.0',
+            trailingText: '',
+          ),
+
+          const SizedBox(height: 15),
+          // Logout Action Mock Row Button
+          TextButton.icon(
+            style: TextButton.styleFrom(foregroundColor: Colors.red[700]),
+            onPressed: () {},
+            icon: const Icon(Icons.logout),
+            label: const Text(
+              'Logout Account',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ),
         ],
+      ),
+    );
+  }
+
+  // Helper template widget to quickly paint matching standard custom settings items
+  Widget _buildProfileRowSetting({
+    required IconData icon,
+    required String title,
+    required String trailingText,
+  }) {
+    return Card(
+      elevation: 0,
+      margin: const EdgeInsets.only(bottom: 10),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+        side: BorderSide(color: Colors.grey.shade100),
+      ),
+      child: ListTile(
+        leading: Icon(icon, color: Colors.teal[800]),
+        title: Text(
+          title,
+          style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 15),
+        ),
+        trailing: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            if (trailingText.isNotEmpty)
+              Text(
+                trailingText,
+                style: const TextStyle(color: Colors.grey, fontSize: 13),
+              ),
+            const SizedBox(width: 4),
+            const Icon(Icons.chevron_right, color: Colors.grey, size: 20),
+          ],
+        ),
+        onPressed: () {},
       ),
     );
   }
