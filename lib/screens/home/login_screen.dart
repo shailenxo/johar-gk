@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'home_screen.dart';
+import 'register_screen.dart'; // 🔗 Imported registration page pointer
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -101,18 +102,19 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     const SizedBox(height: 36),
 
-                    // 📨 COMPONENT 3: EMAIL FORM FIELD
-                    _buildInputLabel('Email'),
+                    // 📨 COMPONENT 3: EMAIL / USERNAME FORM FIELD
+                    _buildInputLabel('Email or Mobile Number'),
                     const SizedBox(height: 8),
                     _buildMinimalTextField(
                       controller: _emailController,
-                      hint: 'you@domain.com',
+                      hint: 'you@domain.com or +91...',
                       hasOrangeBorder: true,
                     ),
                     const SizedBox(height: 24),
 
                     // 🔑 COMPONENT 4: PASSWORD FORM FIELD
-                    _buildInputLabel('Password'),
+                    _buildInputLabel(
+                        'Password (Leave blank if requesting OTP)'),
                     const SizedBox(height: 8),
                     _buildMinimalTextField(
                       controller: _passwordController,
@@ -202,7 +204,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         child: const Center(
                           child: Text(
-                            'Sign in',
+                            'Sign in / Request OTP',
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 15,
@@ -228,7 +230,6 @@ class _LoginScreenState extends State<LoginScreen> {
                             child: _buildOAuthButton(
                                 'Google', Icons.g_mobiledata_rounded)),
                         const SizedBox(width: 16),
-                        // 🌟 SWAPPED FROM GITHUB TO FACEBOOK HERE
                         Expanded(
                             child:
                                 _buildOAuthButton('Facebook', Icons.facebook)),
@@ -236,7 +237,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     const SizedBox(height: 36),
 
-                    // FOOTER LINK ROUTERS
+                    // FOOTER LINK ROUTERS (Now routes to your new dynamic registration template)
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -244,7 +245,13 @@ class _LoginScreenState extends State<LoginScreen> {
                             style: TextStyle(
                                 color: Colors.grey[500], fontSize: 13)),
                         GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const RegisterScreen()),
+                            );
+                          },
                           child: const Text(
                             'Create one',
                             style: TextStyle(
