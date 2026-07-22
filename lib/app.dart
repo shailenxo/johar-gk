@@ -1,17 +1,20 @@
-import 'screens/home/login_screen.dart';
 import 'package:flutter/material.dart';
-import 'core/theme/app_theme.dart';
+import 'screens/home/auth_screen.dart'; // Handles the new sliding capsule layout
 
-class JoharGKApp extends StatelessWidget {
-  const JoharGKApp({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
       title: 'Johar GK',
-      theme: AppTheme.lightTheme,
-      home: const LoginScreen(),
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        brightness: Brightness.dark,
+        primaryColor: const Color(0xFFFF7A00),
+        scaffoldBackgroundColor: const Color(0xFF0A0D14),
+      ),
+      home: const AuthScreen(),
     );
   }
 }

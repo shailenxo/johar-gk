@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:johar_gk/screens/tests/chapter_screen.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -11,6 +12,36 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0;
 
+  // Get current logged-in Supabase user
+  User? get currentUser => Supabase.instance.client.auth.currentUser;
+
+  // Get User Display Name (or fallback to email/phone)
+  String get _userName {
+    final meta = currentUser?.userMetadata;
+    if (meta != null && meta['full_name'] != null) {
+      return meta['full_name'];
+    } else if (currentUser?.email != null) {
+      return currentUser!.email!.split('@').first;
+    } else if (currentUser?.phone != null) {
+      return currentUser!.phone!;
+    }
+    return 'User';
+  }
+
+  // Get User Profile Image (or fallback to placeholder)
+  String get _userAvatarUrl {
+    final meta = currentUser?.userMetadata;
+    if (meta != null && meta['avatar_url'] != null) {
+      return meta['avatar_url'];
+    }
+    return 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=100&q=80';
+  }
+
+  // Sign out function
+  Future<void> _signOut() async {
+    await Supabase.instance.client.auth.signOut();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,20 +49,18 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         backgroundColor: const Color(0xFF0D0E15),
         elevation: 0,
-        leading: const Padding(
-          padding: EdgeInsets.only(left: 16.0),
+        leading: Padding(
+          padding: const EdgeInsets.only(left: 16.0),
           child: CircleAvatar(
-            backgroundImage: NetworkImage(
-              'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=100&q=80',
-            ),
+            backgroundImage: NetworkImage(_userAvatarUrl),
           ),
         ),
-        title: const Column(
+        title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Alex J.',
-              style: TextStyle(
+              _userName,
+              style: const TextStyle(
                 color: Colors.white,
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
@@ -39,14 +68,19 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ],
         ),
-        actions: const [
-          Padding(
+        actions: [
+          // Sign Out Button
+          IconButton(
+            icon: const Icon(Icons.logout, color: Colors.grey),
+            tooltip: 'Sign Out',
+            onPressed: _signOut,
+          ),
+          const Padding(
             padding: EdgeInsets.only(right: 16.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                // FIXED: Updated top right header tracking texts
                 Text(
                   'JOHAR',
                   style: TextStyle(
